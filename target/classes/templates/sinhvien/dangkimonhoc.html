@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<head th:replace="sinhvien/layout/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:replace="sinhvien/layout/header :: header"></header>
+    <div th:replace="sinhvien/layout/sidebar :: sidebar"></div>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>Đăng Ký Môn Học</h1>
+            <ol class="breadcrumb">
+                <li><a th:href="@{/sinhvien/index}"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Đăng Ký Môn Học</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <!-- Hidden input to store maSV for JavaScript -->
+            <input type="hidden" id="maSV" sec:authentication="principal.maSV" th:value="${taiKhoan != null ? taiKhoan.maSV : ''}">
+
+            <!-- Thông báo lỗi -->
+            <div th:if="${error}" class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <p th:text="${error}"></p>
+            </div>
+
+            <div class="box" th:unless="${error}">
+                <!-- Danh sách môn học có sẵn -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh Sách Môn Học Có Sẵn</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered" style="table-layout: fixed; width: 100%;">
+                        <thead>
+                        <tr>
+                            <th style="width: 5%;"><input type="checkbox" id="selectAllAvailable"></th>
+                            <th style="width: 10%;">Mã MH</th>
+                            <th style="width: 20%;">Tên MH</th>
+                            <th style="width: 20%;">Tên GV</th>
+                            <th style="width: 10%;">Số Tín Chỉ</th>
+                        </tr>
+                        </thead>
+                        <tbody id="monHocTableBody">
+                        <tr><td colspan="5">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" id="dangKyButton">Đăng Ký</button>
+                </div>
+
+                <!-- Danh sách môn học đã đăng ký -->
+                <div class="box-header with-border">
+                    <h3 class="box-title">Danh Sách Môn Học Đã Đăng Ký</h3>
+                </div>
+                <div class="box-body">
+                    <table class="table table-bordered" style="table-layout: fixed; width: 100%;">
+                        <thead>
+                        <tr>
+                            <th style="width: 5%;"><input type="checkbox" id="selectAllRegistered"></th>
+                            <th style="width: 10%;">Mã MH</th>
+                            <th style="width: 20%;">Tên MH</th>
+                            <th style="width: 20%;">Tên GV</th>
+                            <th style="width: 10%;">Số Tín Chỉ</th>
+                            <th style="width: 10%;">Điểm</th>
+                        </tr>
+                        </thead>
+                        <tbody id="diemTableBody">
+                        <tr><td colspan="6">Đang tải dữ liệu...</td></tr>
+                        </tbody>
+                    </table>
+                    <button class="btn btn-danger" id="xoaButton">Hủy Đăng Ký</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="sinhvien/layout/footer :: footer"></div>
+</div>
+
+<div th:replace="sinhvien/layout/scripts :: scripts"></div>
+<!-- Include the custom JavaScript file -->
+<script th:src="@{/js/sinhvien-dangkimonhoc.js}"></script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<head th:replace="giangvien/layout/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+  <header th:replace="giangvien/layout/header :: header"></header>
+  <div th:replace="giangvien/layout/sidebar :: sidebar"></div>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>Danh Sách Môn Học</h1>
+      <ol class="breadcrumb">
+        <li><a th:href="@{/giangvien/index}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Danh Sách Môn Học</li>
+      </ol>
+    </section>
+
+    <section class="content">
+      <!-- Hidden input để lưu maGV từ Authentication -->
+      <input type="hidden" id="maGV" th:value="${#authentication.principal.maGV ?: ''}">
+
+      <!-- Thông báo lỗi -->
+      <div th:if="${error}" class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p th:text="${error}"></p>
+      </div>
+
+      <!-- Danh sách môn học -->
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Danh Sách Môn Học Dạy</h3>
+        </div>
+        <div class="box-body">
+          <table class="table table-bordered" style="table-layout: fixed; width: 100%;">
+            <thead>
+            <tr>
+              <th style="width: 20%;">Mã MH</th>
+              <th style="width: 40%;">Tên MH</th>
+              <th style="width: 20%;">Số Tín Chỉ</th>
+              <th style="width: 20%;">Tùy Chọn</th>
+            </tr>
+            </thead>
+            <tbody id="monHocTableBody">
+            <tr>
+              <td colspan="4" style="text-align: center;">Đang tải dữ liệu...</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div th:replace="giangvien/layout/footer :: footer"></div>
+</div>
+
+<div th:replace="giangvien/layout/scripts :: scripts"></div>
+
+<!-- Script để lấy dữ liệu từ API -->
+<script th:inline="javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+    const maGV = document.getElementById('maGV').value.trim();
+
+    if (maGV) {
+      fetch(`/giangvien/monhoc/${maGV}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        }
+      })
+              .then(response => {
+                if (!response.ok) {
+                  throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+              })
+              .then(data => {
+                const tbody = document.getElementById('monHocTableBody');
+                tbody.innerHTML = ''; // Xóa nội dung "Đang tải dữ liệu..."
+
+                if (!data || data.length === 0) {
+                  tbody.innerHTML = '<tr><td colspan="4" style="text-align: center;">Không có môn học nào</td></tr>';
+                } else {
+                  data.forEach(monHoc => {
+                    const row = `
+  <tr>
+    <td>${monHoc.maMH || 'N/A'}</td>
+    <td>${monHoc.tenMH || 'N/A'}</td>
+    <td>${monHoc.soTinChi || 'N/A'}</td>
+    <td>
+      <a href="/giangvien/sinhvien?maGV=${maGV}&maMH=${monHoc.maMH || ''}" class="btn btn-info btn-sm">Xem danh sách SV</a>
+    </td>
+  </tr>`;
+                    tbody.innerHTML += row;
+                  });
+                }
+              })
+              .catch(error => {
+                console.error('Lỗi khi lấy danh sách môn học:', error);
+                document.getElementById('monHocTableBody').innerHTML =
+                        '<tr><td colspan="4" style="text-align: center;">Có lỗi xảy ra khi tải dữ liệu: ' + error.message + '</td></tr>';
+              });
+    } else {
+      document.getElementById('monHocTableBody').innerHTML =
+              '<tr><td colspan="4" style="text-align: center;">Vui lòng đăng nhập hoặc tài khoản không có mã giảng viên</td></tr>';
+    }
+  });
+</script>
+</body>
+</html>

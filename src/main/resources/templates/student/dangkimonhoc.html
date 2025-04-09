@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Ký Môn Học</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../static/css/dkimon.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="#">Đăng Kí Môn Học</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="index.html">Trang Chủ</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-user-circle me-1"></i> Tài khoản
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                        <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+                        <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item text-danger" href="#">Đăng xuất</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+<div class="container mt-5">
+    <table>
+        <tr>
+            <th></th>
+            <th>Mã MH</th>
+            <th>Tên môn học</th>
+            <th>NMH</th>
+            <th>TTH</th>
+            <th>STC</th>
+            <th>STCHP</th>
+            <th>Mã lớp</th>
+            <th>Sĩ số</th>
+            <th>CL</th>
+            <th>TH</th>
+            <th>Thứ</th>
+            <th>Tiết BD</th>
+            <th>ST</th>
+            <th>Phòng</th>
+            <th>Giảng viên</th>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>CS03007</td>
+            <td>Cấu trúc dữ liệu và thuật giải</td>
+            <td>01</td>
+            <td></td>
+            <td>3</td>
+            <td>3.0</td>
+            <td>D23_TH_A</td>
+            <td>85</td>
+            <td>10</td>
+            <td></td>
+            <td>Tu</td>
+            <td>10</td>
+            <td>3</td>
+            <td>C701</td>
+            <td>N.T.Tùng</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>CS03007</td>
+            <td>Cấu trúc dữ liệu và thuật giải</td>
+            <td>02</td>
+            <td></td>
+            <td>3</td>
+            <td>3.0</td>
+            <td>D23_TH_B</td>
+            <td>85</td>
+            <td>14</td>
+            <td></td>
+            <td>Tu</td>
+            <td>10</td>
+            <td>3</td>
+            <td>C703</td>
+            <td>N.T.Tùng</td>
+        </tr>
+    </table>
+    <a href="#register-course" class="btn btn-primary">Đăng Ký</a>
+
+</div>
+<div class="container mt-5">
+    <h2 class="mb-4">Danh Sách Môn Học Đã Đăng Ký</h2>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Mã Môn</th>
+            <th>Tên Môn Học</th>
+            <th>Giảng Viên</th>
+            <th>Trạng Thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>IT101</td>
+            <td>Lập Trình C++</td>
+            <td>Nguyễn Văn B</td>
+            <td>Đã đăng ký</td>
+        </tr>
+        <tr>
+            <td>IT102</td>
+            <td>Cơ Sở Dữ Liệu</td>
+            <td>Trần Thị C</td>
+            <td>Đã đăng ký</td>
+        </tr>
+        <tr>
+            <td>IT103</td>
+            <td>Phân Tích Hệ Thống</td>
+            <td>Lê Văn D</td>
+            <td>Đã đăng ký</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

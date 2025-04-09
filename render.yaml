@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: student-score-management
+    env: java
+    plan: free
+    buildCommand: ./mvnw clean package
+    startCommand: java -jar target/*.jar
+    branch: main
+    region: oregon

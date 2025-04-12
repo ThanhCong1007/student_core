@@ -1,17 +1,36 @@
+# Stage 1: Build React app
+FROM node:18-alpine as frontend-build
 
-FROM maven:3-openjdk-17 AS build
 WORKDIR /app
 
-COPY . .
-RUN mvn clean package -DskipTests
+COPY src/frontend/package*.json ./
+RUN npm install
 
+COPY src/frontend ./
+RUN npm run build
 
-# Run stage
+# Stage 2: Build Spring Boot app with Maven
+FROM maven:3.9.4-eclipse-temurin-17 as backend-build
 
-FROM openjdk:17-jdk-slim
 WORKDIR /app
 
-COPY --from=build /app/target/DrComputer-0.0.1-SNAPSHOT.war drcomputer.war
-EXPOSE 8080 
+COPY pom.xml .
+COPY .mvn .mvn
+COPY mvnw .
+RUN ./mvnw dependency:go-offline
 
-ENTRYPOINT ["java","-jar","drcomputer.war"]
+COPY src src
+COPY --from=frontend-build /app/build src/main/resources/static
+
+RUN ./mvnw clean package -DskipTests
+
+# Stage 3: Final image
+FROM eclipse-temurin:17-jdk-alpine
+
+WORKDIR /app
+
+COPY --from=backend-build /app/target/*.jar app.jar
+
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

@@ -11,7 +11,7 @@
     <groupId>com.javaweb</groupId>
     <artifactId>STUDENT_SCORE_MANAGEMENT</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>STUDENT_SCORE_MANAGEMENT</name>
     <description>STUDENT_SCORE_MANAGEMENT</description>
     <url/>

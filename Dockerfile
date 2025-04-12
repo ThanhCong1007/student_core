@@ -17,6 +17,10 @@ WORKDIR /app
 COPY pom.xml .
 COPY .mvn .mvn
 COPY mvnw .
+
+# ✅ Thêm dòng này để tránh lỗi thiếu quyền thực thi
+RUN chmod +x mvnw
+
 RUN ./mvnw dependency:go-offline
 
 COPY src src

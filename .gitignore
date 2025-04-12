@@ -1,7 +1,8 @@
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
-
+!**/src/main/**/target/
+!**/src/test/**/target/
 
 ### STS ###
 .apt_generated
@@ -30,3 +31,22 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Node ###
+/src/frontend/node_modules/
+/src/frontend/.pnp
+/src/frontend/.pnp.js
+/src/frontend/coverage
+/src/frontend/build
+/src/frontend/.DS_Store
+/src/frontend/.env.local
+/src/frontend/.env.development.local
+/src/frontend/.env.test.local
+/src/frontend/.env.production.local
+/src/frontend/npm-debug.log*
+/src/frontend/yarn-debug.log*
+/src/frontend/yarn-error.log*
+
+### Application Properties ###
+# src/main/resources/application-dev.properties
+# src/main/resources/application-prod.properties

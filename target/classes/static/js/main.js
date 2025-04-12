@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
 
         // Gửi API bằng Fetch
-        fetch("http://localhost:8080/admin/addTaiKhoan", {
+        fetch("http://localhost:8080/admin/index", {
             method: "POST",
             headers: { "Content-Type": "application/json;charset=UTF-8" },
             body: JSON.stringify(data)

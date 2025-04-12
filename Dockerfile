@@ -2,7 +2,7 @@ FROM maven:3.8.5-openjdk-17 AS build
 WORKDIR /student_core
 COPY . .
 # Sửa file pom.xml trước khi build
-RUN sed -i '/<packaging>war<\/packaging>/d' pom.xml
+RUN sed -i '/<packaging>jar<\/packaging>/d' pom.xml
 RUN mvn clean package -DskipTests
 
 FROM openjdk:17-jdk-slim

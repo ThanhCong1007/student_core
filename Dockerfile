@@ -1,10 +1,11 @@
-FROM maven:3.8-openjdk-21.0.5 AS build
+# Stage 1: Build
+FROM maven:3.8-openjdk-21-slim AS build
 WORKDIR /app
 COPY . .
 RUN mvn clean package -DskipTests
 
-FROM openjdk:21.0.5-jdk-slim
+# Stage 2: Run
+FROM openjdk:21-slim
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
-EXPOSE 8082
 CMD ["java", "-jar", "app.jar"]

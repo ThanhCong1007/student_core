@@ -1,8 +1,6 @@
 services:
   - type: web
-    name: springboot-app
+    name: student-score-management
     env: docker
-    plan: free
-    branch: main
     dockerfilePath: ./Dockerfile
-    region: oregon
+    plan: free

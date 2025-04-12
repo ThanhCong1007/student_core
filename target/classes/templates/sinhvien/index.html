@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<head th:replace="sinhvien/layout/head :: head"></head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+
+    <header th:replace="sinhvien/layout/header :: header"></header>
+    <div th:replace="sinhvien/layout/sidebar :: sidebar"></div>
+
+    <div class="content-wrapper">
+        <section class="content-header">
+            <h1>Trang Chủ Sinh Viên</h1>
+            <ol class="breadcrumb">
+                <li><a th:href="@{/sinhvien/index}"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">Thông Tin Sinh Viên</li>
+            </ol>
+        </section>
+
+        <section class="content">
+            <!-- Thông báo -->
+            <div th:if="${message}" class="alert alert-success alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <p th:text="${message}"></p>
+            </div>
+            <div th:if="${error}" class="alert alert-danger alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                <p th:text="${error}"></p>
+            </div>
+
+            <!-- Thông tin tài khoản -->
+            <div class="box" th:unless="${error}">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Thông Tin Tài Khoản</h3>
+                </div>
+                <div class="box-body">
+                    <p><strong>Mã Tài Khoản:</strong> <span sec:authentication="principal.maTK" id="maTK"></span></p>
+                    <p><strong>Username:</strong> <span sec:authentication="principal.username"></span></p>
+                    <p><strong>Vai Trò:</strong> <span sec:authentication="principal.role"></span></p>
+                    <!-- Thông tin Sinh viên nếu có -->
+                    <p><strong>Mã SV:</strong> <span sec:authentication="principal.maSV" id="maSV"></span></p>
+                    <p th:if="${#authentication.getPrincipal().maSV != null}">
+                        <strong>Tên SV:</strong> <span sec:authentication="principal.tenSV" id="tenSV"></span>
+                    </p>
+                    <p th:if="${#authentication.getPrincipal().maGV != null}">
+                        <strong>Email:</strong> <span sec:authentication="principal.email" id="email"></span>
+                    </p>
+                    <p>Đây là trang chủ dành cho sinh viên. Bạn có thể đăng ký môn học hoặc xem bảng điểm từ menu bên trái.</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="sinhvien/layout/footer :: footer"></div>
+</div>
+
+<div th:replace="sinhvien/layout/scripts :: scripts"></div>
+<script th:src="@{/js/sinhVien.js}"></script>
+
+</body>
+</html>

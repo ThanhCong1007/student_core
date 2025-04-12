@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+<head th:replace="admin/layout/head :: head">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sửa Môn Học</title>
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+  <header th:replace="admin/layout/header :: header"></header>
+  <div th:replace="admin/layout/sidebar :: sidebar"></div>
+
+  <div class="content-wrapper">
+    <section class="content-header">
+      <h1>Sửa Môn Học</h1>
+      <ol class="breadcrumb">
+        <li><a th:href="@{/admin/index}"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a th:href="@{/admin/listMonHoc}">Quản Lý Môn Học</a></li>
+        <li class="active">Sửa Môn Học</li>
+      </ol>
+    </section>
+
+    <section class="content">
+      <div id="success-message" class="alert alert-success alert-dismissible" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p></p>
+      </div>
+      <div id="error-message" class="alert alert-danger alert-dismissible" style="display: none;">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+        <p></p>
+      </div>
+
+      <div class="box">
+        <div class="box-header with-border">
+          <h3 class="box-title">Chỉnh Sửa Thông Tin Môn Học</h3>
+        </div>
+        <div class="box-body">
+          <form id="editForm">
+            <div class="form-group">
+              <label>Mã MH</label>
+              <input type="text" class="form-control" id="maMH" readonly />
+            </div>
+            <div class="form-group">
+              <label>Tên Môn Học</label>
+              <input type="text" class="form-control" id="tenMH" required />
+            </div>
+            <div class="form-group">
+              <label>Số Tín Chỉ</label>
+              <input type="number" class="form-control" id="soTinChi" required />
+            </div>
+            <div class="form-group">
+              <label>Mã Giảng Viên</label>
+              <input type="text" class="form-control" id="maGV" />
+            </div>
+            <div class="form-group">
+              <label>Tên Giảng Viên</label>
+              <input type="text" class="form-control" id="tenGV" readonly />
+            </div>
+            <button type="button" class="btn btn-success" onclick="submitEditForm()">Cập nhật</button>
+            <a th:href="@{/admin/monhoc}" class="btn btn-secondary">Quay lại</a>
+          </form>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div th:replace="admin/layout/footer :: footer"></div>
+</div>
+
+<div th:replace="admin/layout/scripts :: scripts"></div>
+<script>
+  // Lấy ID từ URL
+  const urlParts = window.location.pathname.split('/');
+  const maMH = urlParts[urlParts.length - 1];
+
+  // Gọi API để lấy dữ liệu môn học khi trang tải
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch(`/admin/findMonHocByMaMH/${maMH}`, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Không tìm thấy môn học');
+              }
+              return response.json();
+            })
+            .then(data => {
+              document.getElementById('maMH').value = data.maMH || '';
+              document.getElementById('tenMH').value = data.tenMH || '';
+              document.getElementById('soTinChi').value = data.soTinChi || '';
+              document.getElementById('maGV').value = data.maGV || '';
+              document.getElementById('tenGV').value = data.tenGV || '';
+            })
+            .catch(error => {
+              const errorDiv = document.getElementById('error-message');
+              errorDiv.querySelector('p').textContent = error.message;
+              errorDiv.style.display = 'block';
+            });
+  });
+
+  function submitEditForm() {
+    const maMH = document.getElementById('maMH').value;
+    const tenMH = document.getElementById('tenMH').value;
+    const soTinChi = document.getElementById('soTinChi').value;
+    const maGV = document.getElementById('maGV').value;
+
+    const monHocDTO = {
+      maMH: parseInt(maMH),
+      tenMH: tenMH,
+      soTinChi: parseInt(soTinChi),
+      maGV: maGV
+    };
+
+    fetch(`/admin/editMonHoc/${maMH}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(monHocDTO)
+    })
+            .then(response => {
+              if (!response.ok) {
+                return response.json().then(error => { throw new Error(error.message); });
+              }
+              return response.json();
+            })
+            .then(data => {
+              const successDiv = document.getElementById('success-message');
+              successDiv.querySelector('p').textContent = data.message;
+              successDiv.style.display = 'block';
+              document.getElementById('error-message').style.display = 'none';
+              setTimeout(() => window.location.href = '/admin/listMonHoc', 1500);
+            })
+            .catch(error => {
+              const errorDiv = document.getElementById('error-message');
+              errorDiv.querySelector('p').textContent = error.message;
+              errorDiv.style.display = 'block';
+              document.getElementById('success-message').style.display = 'none';
+            });
+  }
+</script>
+<script th:src="@{/js/monHoc.js}"></script>
+</body>
+</html>

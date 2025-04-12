@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quản Lý Điểm Sinh Viên</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="../../static/css/dkimon.css">
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Xem Điểm</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" href="index.html">Trang Chủ</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fas fa-user-circle me-1"></i> Tài khoản
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" href="#">Hồ sơ</a></li>
+            <li><a class="dropdown-item" href="#">Cài đặt</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item text-danger" href="#">Đăng xuất</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<h2 style="text-align: center; margin-top: 10px;">Trang Xem Điểm Sinh Viên</h2>
+<table>
+  <tr>
+    <th>STT</th>
+    <th>Mã Môn</th>
+    <th>Tên Môn</th>
+    <th>TC</th>
+    <th>Điểm thi</th>
+    <th>KQ</th>
+  </tr>
+  <tr>
+    <td>1</td>
+    <td>GS19001</td>
+    <td>Tiếng Anh 1</td>
+    <td>2</td>
+    <td>8.8</td>
+    <td>Đạt</td>
+  </tr>
+  <tr>
+    <td>2</td>
+    <td>GS49004</td>
+    <td>Thí nghiệm Vật lý_Phần 1</td>
+    <td>1</td>
+    <td>8.0</td>
+    <td>Đạt</td>
+  </tr>
+  <tr>
+    <td>3</td>
+    <td>GS19005</td>
+    <td>Tiếng Anh đầu khóa</td>
+    <td>2</td>
+    <td>3.6</td>
+    <td>X</td>
+  </tr>
+
+</table>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</html>

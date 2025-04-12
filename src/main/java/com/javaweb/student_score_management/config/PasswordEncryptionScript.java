@@ -13,9 +13,9 @@ public class PasswordEncryptionScript {
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         try {
             // Kết nối với cơ sở dữ liệu
-            String url = "jdbc:mysql://localhost:3306/student_score";
-            String username = "root";
-            String password = "";
+            String url = "jdbc:mysql://mysql-doanweb2025-phamminhanh11623-9727.k.aivencloud.com:18559/defaultdb?useSSL=true&requireSSL=true";
+            String username = "avnadmin";
+            String password = "AVNS_gIS6svh1JzTq3kNWoVo";
 
             Connection connection = DriverManager.getConnection(url, username, password);
 
